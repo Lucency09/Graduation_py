@@ -12,6 +12,7 @@
     <Name>Graduation_py</Name>
     <RootNamespace>Graduation_py</RootNamespace>
     <InterpreterId>Global|PythonCore|3.7</InterpreterId>
+    <TestFramework>Pytest</TestFramework>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
