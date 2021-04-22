@@ -16,8 +16,12 @@ opWrapper.configure(params)
 opWrapper.start()
 #上诉部分为调用openpose，别动
 
-def getkey(img):
+def getkey(img):#获取关键节点坐标
+    im = cv2.resize(img,(640,360,))#设置为固定分辨率
     datum = op.Datum()
-    datum.cvInputData = frame
+    datum.cvInputData = im
     opWrapper.emplaceAndPop(op.VectorDatum([datum]))
-    return datum.poseKeypoints
+    return datum.cvOutputData,datum.poseKeypoints#返回值1为骨架图，返回值2为坐标
+
+def getkeyary(keypoint):#坐标绘图
+    return 0
