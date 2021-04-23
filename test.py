@@ -1,11 +1,10 @@
-import numpy as np
 import cv2
 import openpose as op
-
-
-img = cv2.imread('C:/Users/Lucency/Desktop/posetest.jpg')#∂¡Õº
-cv2.imshow('img',img)
- 
-keypage,keyary = op.getkey(img)
-cv2.imshow('keypoint',keypage)
-cv2.waitKey(0)
+import numpy as np
+ary = np.load('pose/models/Turn_Right/test.npy')
+for i in range(77):
+    map = op.getkeyary(ary[i,:,:])
+    cv2.imshow("map",map )
+    #  add below code
+    cv2.waitKey(50)
+cv2.destroyAllWindows()
