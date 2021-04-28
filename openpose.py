@@ -36,7 +36,7 @@ def getkeyary(keyary):#坐标绘图
     map = np.zeros((640,360,3),np.uint8)
     font = cv2.FONT_HERSHEY_SIMPLEX
     i = 0
-    for i in range(25):
+    for i in range(keyary.shape[1]):
         cv2.circle(map, tuple(keyary[i,:2]), 1, (255, 255, 255), -1)
     return map
 

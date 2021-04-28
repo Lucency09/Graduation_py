@@ -8,3 +8,4 @@ for i in range(77):
     #  add below code
     cv2.waitKey(50)
 cv2.destroyAllWindows()
+cv2.waitKey(0)
