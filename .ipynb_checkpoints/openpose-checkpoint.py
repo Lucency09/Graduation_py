@@ -32,11 +32,11 @@ def getkey(img):#获取关键节点坐标
     opWrapper.emplaceAndPop(op.VectorDatum([datum]))
     return datum.cvOutputData,datum.poseKeypoints#返回值1为骨架图，返回值2为坐标
 
-def getkeyary(keyary):#坐标绘图
+def getkeyary(keyary):#坐标绘图,输入必须为二维ary
     map = np.zeros((640,360,3),np.uint8)
     font = cv2.FONT_HERSHEY_SIMPLEX
     i = 0
-    for i in range(keyary.shape[1]):
+    for i in range(keyary.shape[0]):
         cv2.circle(map, tuple(keyary[i,:2]), 1, (255, 255, 255), -1)
     return map
 
