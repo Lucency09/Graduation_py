@@ -31,7 +31,8 @@ def align(ary1,ary3):
 #基于欧式距离获取两个单帧的相似度，处理对象frame,要求为相对坐标并已经对齐
 def get_Ed(ary1,ary2):
     sum = 0
-    for i in range(ary1.shape[0]):
+    #for i in range(ary1.shape[0]):
+    for i in range(2,9):
         sum += get_distance(ary1[i],ary2[i])
     return pow(sum,1/2)
         
