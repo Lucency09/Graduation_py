@@ -23,6 +23,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DTW.py" />
     <Compile Include="Graduation_py.py" />
     <Compile Include="module1.py">
       <SubType>Code</SubType>

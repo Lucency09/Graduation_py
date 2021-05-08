@@ -18,7 +18,7 @@ opWrapper.start()
 #上诉部分为调用openpose，别动
  
 def getkey(img):#获取关键节点坐标
-    #旋转90度
+    #旋转90度手机录像需要
     dst_im = cv2.flip(img, 0)  #原型：cv2.flip(src, flipCode[, dst]) → dst  flipCode表示对称轴 0：x轴  1：y轴.  -1：both
     dst_im = cv2.transpose(dst_im)
     im = cv2.resize(dst_im,(360,640))#设置为固定分辨率
