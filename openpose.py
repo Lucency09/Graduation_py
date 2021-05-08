@@ -57,4 +57,5 @@ def Video_processing(instr,outstr):#视频处理
         print('Processing complete ',i)
         print('............................................................')
         sucess,frame = vid.read()
+    print('all over!!')
     np.save(outstr,outary)

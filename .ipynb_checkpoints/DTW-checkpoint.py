@@ -3,9 +3,14 @@ import cv2
 import copy
 import DTW as dtw
 
+#处理流程：
+#keychange()对两video对象进行压缩
+#align()对齐
+#get_twf()返回积累矩阵，矩阵最后一个函数即为积累距离
+
 #返回两点距离
 def get_distance(a,b):
-    return pow(pow(b[0] - a[0],2) + pow(b[1] - a[1],2),0.5)
+    return pow(pow(b[0] - a[0],2) + pow(b[1] - a[1],2),1/2)
 
 #压缩并求相对坐标，处理对象video
 def keychange(ary):
