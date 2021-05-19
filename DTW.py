@@ -20,7 +20,7 @@ def get_videonp(str):
 def get_distance(a,b):
     return pow(pow(b[0] - a[0],2) + pow(b[1] - a[1],2),1/2)
 
-#骨骼图播放
+#关键点图播放
 def keyplay(ary):
     tem = copy.deepcopy(ary)
     tem[:,:,0] += 200
@@ -77,15 +77,6 @@ def align(ary3):
 
 
 
-#获取权值分母
-def get_Denominator(ary1,ary2):
-    sum = 0
-    for i in ary1:
-        sum += get_distance(i,ary1[0])
-    for i in ary2:
-        sum += get_distance(i,ary2[0])
-    return sum
-
 #基于欧式距离获取两个单帧的相似度，处理对象frame,要求为相对坐标并已经对齐
 #未知原理公式0.5，效果很好
 def get_Ed05(ary1,ary2):
@@ -101,6 +92,15 @@ def get_Ed05(ary1,ary2):
     return pow(sum,1/2)
 
 #带权公式1.0，效果没有0.5好，讲得通道理
+#获取权值分母
+def get_Denominator(ary1,ary2):
+    sum = 0
+    for i in ary1:
+        sum += get_distance(i,ary1[0])
+    for i in ary2:
+        sum += get_distance(i,ary2[0])
+    return sum
+
 def get_Ed10(ary1,ary2):
     sum = 0
     denominator = get_Denominator(ary1,ary2)
@@ -113,22 +113,33 @@ def get_Ed10(ary1,ary2):
         #sum += dest * weight
     return pow(sum,1/2)
 
-#带权公式2.0
+#带权公式2.0,结合余弦相似度
+def get_chcos(ary1,ary2):
+    tem1 = ary1[0] * ary2[0] + ary1[1] * ary2[1]
+    tem2 = pow(pow(ary1[0],2) + pow(ary1[1],2),1 / 2) * pow(pow(ary2[0],2) + pow(ary2[1],2),1 / 2)
+    if(tem2 == 0):
+        return 0
+    return 1 - tem1 / tem2
+
 def get_Ed20(ary1,ary2):
     sum = 0
-    denominator = get_Denominator(ary1,ary2)
-    #for i in range(ary1.shape[0]):
     for i in range(2,12):
-        dest = get_distance(ary1[i],ary1[0]) + get_distance(ary2[i],ary2[0])
-        #dest = get_distance(ary1[i],ary2[i])
-        weight = dest / denominator
+        weight = get_chcos(ary1[i],ary2[i])
         sum += get_distance(ary1[i],ary2[i]) * weight
-        #sum += dest * weight
     return pow(sum,1/2)
 
+#带权公式3.0,结合余弦相似度与公式1.0
+def get_Ed30(ary1,ary2):
+    sum = 0
+    denominator = get_Denominator(ary1,ary2)
+    for i in range(2,12):
+        dest = get_distance(ary1[i],ary1[0]) + get_distance(ary2[i],ary2[0])
+        weight = get_chcos(ary1[i],ary2[i]) * dest / denominator
+        sum += get_distance(ary1[i],ary2[i]) * weight
+    return pow(sum,1/2)
 
 #计算两个视频序列的累计距离
-def get_twf(A,B,dis_fuc = get_Ed05):
+def get_twf(A,B,dis_fuc = get_Ed30):
     N_A = len(A)
     N_B = len(B)
     D = np.zeros([N_A,N_B])

@@ -61,7 +61,8 @@ class T_library(object):
         
         lis.sort(key=lambda k:k['velue'])
         return lis
-        
+    
+    
     def get_result(ary):
         result = {'Stop':0,
                   'Straight':0,
